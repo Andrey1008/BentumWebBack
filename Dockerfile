@@ -11,13 +11,14 @@ RUN pip install --upgrade pip
 
 COPY requirements.txt /app/
 
+RUN apt-get install -y gcc default-libmysqlclient-dev pkg-config
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 FROM python:3.13-slim
 
 RUN useradd -m -r appuser && \
    mkdir /app && \
-   apt-get install -y gcc default-libmysqlclient-dev pkg-config && \
    chown -R appuser /app
 
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
