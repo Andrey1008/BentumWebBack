@@ -6,4 +6,5 @@ djangorestframework
 django-cors-headers
 pillow
 mysqlclient
+PyMySQL
 gunicorn
