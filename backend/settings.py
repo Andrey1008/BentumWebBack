@@ -11,16 +11,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-SECRET_KEY = 'django-insecure-%cc5-crcil(rkw6ftz-+fclo8_3g__c5o4sr=#6if-wmrzv1pv'
+DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-DEBUG = True
-
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS","127.0.0.1").split(",")
 
 SESSION_COOKIE_SECURE = False  # Для разработки (HTTP)
 SESSION_COOKIE_HTTPONLY = True  # Только для HTTP
@@ -84,11 +84,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'databases' / 'server.db',
-    }
-}
+     'default': {
+         'ENGINE': 'django.db.backends.{}'.format(
+             os.getenv('DATABASE_ENGINE', 'sqlite3')
+         ),
+         'NAME': os.getenv('DATABASE_NAME', 'polls'),
+         'USER': os.getenv('DATABASE_USERNAME', 'myprojectuser'),
+         'PASSWORD': os.getenv('DATABASE_PASSWORD', 'password'),
+         'HOST': os.getenv('DATABASE_HOST', '127.0.0.1'),
+         'PORT': os.getenv('DATABASE_PORT', 5432),
+     }
+ }
 
 
 
