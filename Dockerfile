@@ -26,8 +26,6 @@ WORKDIR /app
 
 COPY --chown=appuser:appuser . .
 
-RUN touch server.db
-
 RUN python manage.py migrate
 
 USER appuser
