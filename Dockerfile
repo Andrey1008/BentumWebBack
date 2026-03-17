@@ -26,6 +26,10 @@ WORKDIR /app
 
 COPY --chown=appuser:appuser . .
 
+RUN mkdir databases
+
+RUN touch ./databases/server.db
+
 RUN python manage.py migrate
 
 USER appuser
