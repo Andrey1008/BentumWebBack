@@ -19,16 +19,16 @@ RUN useradd -m -r appuser && \
    mkdir /app && \
    chown -R appuser /app
 
-RUN touch /app/server.db
-
-RUN python ./app/manage.py migrate
-
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
 
 WORKDIR /app
 
 COPY --chown=appuser:appuser . .
+
+RUN touch server.db
+
+RUN python manage.py migrate
 
 USER appuser
 
