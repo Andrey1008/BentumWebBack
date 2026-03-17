@@ -21,7 +21,7 @@ RUN useradd -m -r appuser && \
 
 RUN touch /app/server.db
 
-RUN python /app/manage.py migrate
+RUN python ./app/manage.py migrate
 
 COPY --from=builder /usr/local/lib/python3.13/site-packages/ /usr/local/lib/python3.13/site-packages/
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
