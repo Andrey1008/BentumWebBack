@@ -11,7 +11,7 @@ RUN pip install --upgrade pip
 
 COPY requirements.txt /app/
 
-RUN apt update && apt install -y python3-dev default-libmysqlclient-dev mysql-client build-essential pkg-config libmariadb3 libmariadb-dev
+RUN apt update && apt install -y python3-dev default-libmysqlclient-dev default-mysql-client build-essential pkg-config libmariadb3 libmariadb-dev
 
 RUN pip install --force --no-cache --no-cache-dir -r requirements.txt
 
