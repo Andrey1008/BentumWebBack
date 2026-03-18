@@ -11,7 +11,13 @@ RUN pip install --upgrade pip
 
 COPY requirements.txt /app/
 
-RUN apt update && apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config libmariadb3 curl
+RUN apt update && apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config libmariadb3 libmariadb-dev curl
+
+RUN curl -LsSO https://r.mariadb.com/downloads/mariadb_repo_setup
+
+RUN chmod +x mariadb_repo_setup
+
+RUN sudo ./mariadb_repo_setup --mariadb-server-version="mariadb-10.6"
 
 RUN pip install --force --no-cache --no-cache-dir -r requirements.txt
 
