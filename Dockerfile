@@ -32,7 +32,7 @@ USER appuser
 
 EXPOSE 1337
 
-CMD ["python", "manage.py", "migrate"]
+ENTRYPOINT ["python", "manage.py", "migrate"]
 
 CMD ["gunicorn", "--bind", "0.0.0.0:1337", "--workers", "3", "backend.wsgi:application"]
 
