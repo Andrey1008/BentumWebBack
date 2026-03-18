@@ -1,4 +1,4 @@
-FROM python:3.13-slim AS builder
+FROM python:3.13 AS builder
 
 RUN mkdir /app
 
@@ -21,7 +21,7 @@ RUN ./mariadb_repo_setup --mariadb-server-version="mariadb-12.2.2"
 
 RUN pip install --force --no-cache --no-cache-dir -r requirements.txt
 
-FROM python:3.13-slim
+FROM python:3.13
 
 RUN useradd -m -r appuser && \
    mkdir /app && \
