@@ -17,7 +17,7 @@ RUN curl -LsSO https://r.mariadb.com/downloads/mariadb_repo_setup
 
 RUN chmod +x mariadb_repo_setup
 
-RUN ./mariadb_repo_setup --mariadb-server-version="mariadb-10.6"
+RUN ./mariadb_repo_setup --mariadb-server-version="mariadb-12.2.2"
 
 RUN pip install --force --no-cache --no-cache-dir -r requirements.txt
 
