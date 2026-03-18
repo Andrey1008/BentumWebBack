@@ -11,13 +11,7 @@ RUN pip install --upgrade pip
 
 COPY requirements.txt /app/
 
-RUN apt update && apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config libmariadb3 libmariadb-dev curl
-
-RUN curl -LsSO https://r.mariadb.com/downloads/mariadb_repo_setup
-
-RUN chmod +x mariadb_repo_setup
-
-RUN ./mariadb_repo_setup --mariadb-server-version="mariadb-12.2.2"
+RUN apt update && apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config libmariadb3 libmariadb-dev
 
 RUN pip install --force --no-cache --no-cache-dir -r requirements.txt
 
@@ -37,6 +31,8 @@ COPY --chown=appuser:appuser . .
 USER appuser
 
 EXPOSE 1337
+
+CMD ["python", "manage.py", "migrate"]
 
 CMD ["gunicorn", "--bind", "0.0.0.0:1337", "--workers", "3", "backend.wsgi:application"]
 
